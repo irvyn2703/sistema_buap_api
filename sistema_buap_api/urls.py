@@ -24,6 +24,8 @@ urlpatterns = [
         path('bootstrap/version', bootstrap.VersionView.as_view()),
     #Create Admin
         path('admin/', users.AdminView.as_view()),
+    #Create Admin
+        path('alumno/', users.AlumnoView.as_view()),
     #Login
         path('token/', auth.CustomAuthToken.as_view()),
     #Logout
