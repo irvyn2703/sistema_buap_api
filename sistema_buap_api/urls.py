@@ -28,6 +28,10 @@ urlpatterns = [
         path('alumno/', users.AlumnoView.as_view()),
     #Create Maestro
         path('maestro/', users.MaestroView.as_view()),
+    #Admin Data
+        path('lista-admins/', users.AdminAll.as_view()),
+    #Maestro Data
+        path('lista-maestros/', users.MaestrosAll.as_view()),
     #Login
         path('token/', auth.CustomAuthToken.as_view()),
     #Logout
