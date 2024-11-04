@@ -16,22 +16,26 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from sistema_buap_api.views import bootstrap
-from sistema_buap_api.views import users
+from sistema_buap_api.views import admin
+from sistema_buap_api.views import maestro
+from sistema_buap_api.views import alumno
 from sistema_buap_api.views import auth
 
 urlpatterns = [
     #Version
         path('bootstrap/version', bootstrap.VersionView.as_view()),
     #Create Admin
-        path('admin/', users.AdminView.as_view()),
+        path('admin/', admin.AdminView.as_view()),
     #Create Alumno
-        path('alumno/', users.AlumnoView.as_view()),
+        path('alumno/', alumno.AlumnoView.as_view()),
     #Create Maestro
-        path('maestro/', users.MaestroView.as_view()),
+        path('maestro/', maestro.MaestroView.as_view()),
     #Admin Data
-        path('lista-admins/', users.AdminAll.as_view()),
+        path('lista-admins/', admin.AdminAll.as_view()),
     #Maestro Data
-        path('lista-maestros/', users.MaestrosAll.as_view()),
+        path('lista-maestros/', maestro.MaestrosAll.as_view()),
+    #Maestro Data
+        path('lista-alumnos/', alumno.AlumnosAll.as_view()),
     #Login
         path('token/', auth.CustomAuthToken.as_view()),
     #Logout
