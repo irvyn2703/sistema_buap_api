@@ -46,7 +46,7 @@ class MaestroView(generics.CreateAPIView):
     # permission_classes = (permissions.IsAuthenticated,)
     def get(self, request, *args, **kwargs):
         maestro = get_object_or_404(Maestros, id = request.GET.get("id"))
-        maestro = AdminSerializer(maestro, many=False).data
+        maestro = MaestroSerializer(maestro, many=False).data
 
         return Response(maestro, 200)
     
@@ -97,3 +97,33 @@ class MaestroView(generics.CreateAPIView):
             return Response({"maestro_created_id": maestro.id }, 201)
 
         return Response(user.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#Se agrega edicion y eliminar maestros
+class MaestrosViewEdit(generics.CreateAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    def put(self, request, *args, **kwargs):
+        # iduser=request.data["id"]
+        maestro = get_object_or_404(Maestros, id=request.data["id"])
+        maestro.clave = request.data["clave"]
+        maestro.fecha_nacimiento = request.data["fecha_nacimiento"]
+        maestro.telefono = request.data["telefono"]
+        maestro.rfc = request.data["rfc"]
+        maestro.cubiculo = request.data["cubiculo"]
+        maestro.area_investigacion = request.data["area_investigacion"]
+        maestro.materias_json = request.data["materias_json"]
+        maestro.save()
+        temp = maestro.user
+        temp.first_name = request.data["first_name"]
+        temp.last_name = request.data["last_name"]
+        temp.save()
+        user = MaestroSerializer(maestro, many=False).data
+
+        return Response(user,200)
+    
+    def delete(self, request, *args, **kwargs):
+        profile = get_object_or_404(Maestros, id=request.GET.get("id"))
+        try:
+            profile.user.delete()
+            return Response({"details":"Maestro eliminado"},200)
+        except Exception as e:
+            return Response({"details":"Algo pasó al eliminar"},400)
