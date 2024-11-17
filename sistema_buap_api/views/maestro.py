@@ -121,9 +121,9 @@ class MaestrosViewEdit(generics.CreateAPIView):
         return Response(user,200)
     
     def delete(self, request, *args, **kwargs):
-        profile = get_object_or_404(Maestros, id=request.GET.get("id"))
+        maestro = get_object_or_404(Maestros, id=request.GET.get("id"))
         try:
-            profile.user.delete()
+            maestro.user.delete()
             return Response({"details":"Maestro eliminado"},200)
         except Exception as e:
             return Response({"details":"Algo pasó al eliminar"},400)
