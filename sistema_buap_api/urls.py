@@ -19,6 +19,7 @@ from sistema_buap_api.views import bootstrap
 from sistema_buap_api.views import admin
 from sistema_buap_api.views import maestro
 from sistema_buap_api.views import alumno
+from sistema_buap_api.views import materia
 from sistema_buap_api.views import auth
 
 urlpatterns = [
@@ -30,18 +31,24 @@ urlpatterns = [
         path('alumno/', alumno.AlumnoView.as_view()),
     #Create Maestro
         path('maestro/', maestro.MaestroView.as_view()),
+    #Create Materia
+        path('materia/', materia.MateriaView.as_view()),
     #Admin Data
         path('lista-admins/', admin.AdminAll.as_view()),
     #Maestro Data
         path('lista-maestros/', maestro.MaestrosAll.as_view()),
     #Maestro Data
         path('lista-alumnos/', alumno.AlumnosAll.as_view()),
+    # Materia Data
+        path('lista-materias/', materia.MateriasAll.as_view()),
     #Edit Admin
         path('admins-edit/', admin.AdminsViewEdit.as_view()),
     #Edit Maestro
         path('maestros-edit/', maestro.MaestrosViewEdit.as_view()),
     #Edit Maestro
         path('alumnos-edit/', alumno.AlumnosViewEdit.as_view()),
+    # Edit Materia
+        path('materias-edit/', materia.MateriasViewEdit.as_view()),
     #Login
         path('token/', auth.CustomAuthToken.as_view()),
     #Logout

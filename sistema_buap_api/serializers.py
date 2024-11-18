@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from sistema_buap_api.models import User, Administradores, Alumnos, Maestros
+from sistema_buap_api.models import User, Administradores, Alumnos, Maestros, Materias
 
 class UserSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
@@ -30,4 +30,11 @@ class MaestroSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Maestros
+        fields = '__all__'
+
+class MateriaSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = Materias
         fields = '__all__'
