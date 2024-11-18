@@ -38,7 +38,10 @@ class MaestroSerializer(serializers.ModelSerializer):
 
 # Serializer para Materias
 class MateriaSerializer(serializers.ModelSerializer):
-    maestro = MaestroSerializer(read_only=True)  # Anidación del MaestroSerializer
+    maestro = serializers.PrimaryKeyRelatedField(
+        queryset=Maestros.objects.all(), write_only=True
+    )
+    maestro_details = MaestroSerializer(read_only=True, source="maestro")
 
     class Meta:
         model = Materias
@@ -54,5 +57,6 @@ class MateriaSerializer(serializers.ModelSerializer):
             "creditos",
             "creation",
             "update",
-            "maestro",  # Incluye los datos completos del maestro
+            "maestro",
+            "maestro_details",
         ]
