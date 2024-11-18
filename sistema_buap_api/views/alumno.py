@@ -42,8 +42,12 @@ class AlumnosAll(generics.CreateAPIView):
         return Response(alumnos, 200)
 
 class AlumnoView(generics.CreateAPIView):
-    #Obtener usuario por ID
-    permission_classes = (permissions.IsAuthenticated,)
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [permissions.IsAuthenticated()]
+        return [permissions.AllowAny()]
+        
+
     def get(self, request, *args, **kwargs):
         alumno = get_object_or_404(Alumnos, id = request.GET.get("id"))
         alumno = AlumnoSerializer(alumno, many=False).data

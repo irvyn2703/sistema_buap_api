@@ -50,9 +50,12 @@ class MateriaView(generics.CreateAPIView):
     """
     Vista para obtener y crear materias.
     """
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [permissions.IsAuthenticated()]
+        return [permissions.AllowAny()]
+        
     # Obtener una materia por NRC
-    permission_classes = (permissions.IsAuthenticated,)
-
     def get(self, request, *args, **kwargs):
         materia = get_object_or_404(Materias, nrc=request.GET.get("nrc"))
         materia = MateriaSerializer(materia, many=False).data

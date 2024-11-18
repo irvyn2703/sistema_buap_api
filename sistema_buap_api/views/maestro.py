@@ -42,8 +42,12 @@ class MaestrosAll(generics.CreateAPIView):
         return Response(maestros, 200)
 
 class MaestroView(generics.CreateAPIView):
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [permissions.IsAuthenticated()]
+        return [permissions.AllowAny()]
+
     #Obtener usuario por ID
-    permission_classes = (permissions.IsAuthenticated,)
     def get(self, request, *args, **kwargs):
         maestro = get_object_or_404(Maestros, id = request.GET.get("id"))
         maestro = MaestroSerializer(maestro, many=False).data

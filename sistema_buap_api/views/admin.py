@@ -40,9 +40,15 @@ class AdminAll(generics.CreateAPIView):
         return Response(lista, 200)
 
 class AdminView(generics.CreateAPIView):
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [permissions.IsAuthenticated()]
+        return [permissions.AllowAny()]
+
+
     #Obtener usuario por ID
-    permission_classes = (permissions.IsAuthenticated,)
     def get(self, request, *args, **kwargs):
+        permission_classes = (permissions.IsAuthenticated,)
         admin = get_object_or_404(Administradores, id = request.GET.get("id"))
         admin = AdminSerializer(admin, many=False).data
 
