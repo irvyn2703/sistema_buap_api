@@ -102,26 +102,6 @@ class AdminView(generics.CreateAPIView):
 
 class AdminsViewEdit(generics.CreateAPIView):
     permission_classes = (permissions.IsAuthenticated,)
-    #Contar el total de cada tipo de usuarios
-    def get(self, request, *args, **kwargs):
-        #Obtener total de admins
-        admin = Administradores.objects.filter(user__is_active = 1).order_by("id")
-        lista_admins = AdminSerializer(admin, many=True).data
-        # Obtienes la cantidad de elementos en la lista
-        total_admins = len(lista_admins)
-
-        #Obtener total de maestros
-        maestros = Maestros.objects.filter(user__is_active = 1).order_by("id")
-        lista_maestros = MaestroSerializer(maestros, many=True).data
-        
-        total_maestros = len(lista_maestros)
-
-        #Obtener total de alumnos
-        alumnos = Alumnos.objects.filter(user__is_active = 1).order_by("id")
-        lista_alumnos = AlumnoSerializer(alumnos, many=True).data
-        total_alumnos = len(lista_alumnos)
-
-        return Response({'admins': total_admins, 'maestros': total_maestros, 'alumnos:':total_alumnos }, 200)
     
     #Editar administrador
     def put(self, request, *args, **kwargs):

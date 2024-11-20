@@ -20,6 +20,7 @@ from sistema_buap_api.views import admin
 from sistema_buap_api.views import maestro
 from sistema_buap_api.views import alumno
 from sistema_buap_api.views import materia
+from sistema_buap_api.views import graficas
 from sistema_buap_api.views import auth
 
 urlpatterns = [
@@ -49,6 +50,10 @@ urlpatterns = [
         path('alumnos-edit/', alumno.AlumnosViewEdit.as_view()),
     # Edit Materia
         path('materias-edit/', materia.MateriasViewEdit.as_view()),
+    # Graficas
+        path('graficas-allUsersByType/', graficas.GraficaAllUsersbyType.as_view()),
+        path('graficas-materiasByDay/', graficas.MateriasByDay.as_view()),
+        path('graficas-materiasByPrograma/', graficas.MateriasByPrograma.as_view()),
     #Login
         path('token/', auth.CustomAuthToken.as_view()),
     #Logout
